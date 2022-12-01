@@ -13,6 +13,7 @@ class LazoViewController: UIViewController {
     
     private var path: UIBezierPath?
     private var strokeLayer: CAShapeLayer?
+    private var shadowLayer: CAShapeLayer?
     
     private var panGesture = UIPanGestureRecognizer()
     
@@ -20,12 +21,20 @@ class LazoViewController: UIViewController {
     @IBOutlet weak var componentImg: UIImageView!
     @IBOutlet weak var originalImg: UIImageView!
     
+    private var firstPoint: CGPoint?
+    
+    private var images = [UIImage]()
+    private var index = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         panGesture = UIPanGestureRecognizer(target: self, action: #selector(self.draggedView(_:)))
            imageView.isUserInteractionEnabled = true
            imageView.addGestureRecognizer(panGesture)
+        
+        images.append(UIImage(named: "vegeta")!)
+        images.append(UIImage(named: "son_goku")!)
     }
     
     @objc func draggedView(_ gesture: UIPanGestureRecognizer) {
@@ -36,61 +45,55 @@ class LazoViewController: UIViewController {
                 print("Began")
                 path = UIBezierPath()
                 path?.move(to: location)
+                
+                firstPoint = location
+                
                 strokeLayer = CAShapeLayer()
+                shadowLayer = CAShapeLayer()
+                
+                imageView.layer.addSublayer(shadowLayer!)
                 imageView.layer.addSublayer(strokeLayer!)
+                
+                shadowLayer?.name = "DashedBottonLine"
+                shadowLayer?.fillColor = UIColor.clear.cgColor
+                shadowLayer?.strokeColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5).cgColor //UIColor.black.cgColor
+                shadowLayer?.lineWidth = 2.5
+                shadowLayer?.lineJoin = CAShapeLayerLineJoin.round
                 
                 strokeLayer?.name = "DashedTopLine"
                 strokeLayer?.fillColor = UIColor.clear.cgColor
                 strokeLayer?.strokeColor = UIColor.white.cgColor
                 strokeLayer?.lineWidth = 2.0
-                strokeLayer?.lineJoin = CAShapeLayerLineJoin.bevel
+                strokeLayer?.lineJoin = CAShapeLayerLineJoin.round
                 strokeLayer?.lineDashPattern = [5, 5] // #1 es la longitud del guión, #2 es la longitud del espacio.
                 
-                strokeLayer?.shadowColor = UIColor.black.cgColor
-                strokeLayer?.shadowOffset = CGSize(width: 0.5, height: 0.5)
-                strokeLayer?.shadowOpacity = 1.0
-                strokeLayer?.shadowRadius = 1.0
-                
+                shadowLayer?.path = path?.cgPath
                 strokeLayer?.path = path?.cgPath
                 
             case .changed:
                 print("Changed")
                 path?.addLine(to: location)
+                shadowLayer?.path = path?.cgPath
                 strokeLayer?.path = path?.cgPath
                 
             case .cancelled, .ended:
                 print("Ended")
-                print("Path: ",path)
-                // remove stroke from image view
                 
-//                strokeLayer?.removeFromSuperlayer()
-//                strokeLayer = nil
-//
-//                // mask the image view
-//
-//                let mask = CAShapeLayer()
-//                mask.fillColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1).cgColor
-//                mask.strokeColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0).cgColor
-//                mask.lineWidth = 0
-//                mask.path = path?.cgPath
-//
-//                imageView.layer.mask = mask
-//
-//                // get cropped image
-//
-//                let image = imageView?.snapshot
-//                imageView.layer.mask = nil
-//
-//                // perhaps use that image?
-//
-//                imageView.image = image
+                if let p0 = firstPoint {
+                    path?.addLine(to: p0)
+                    shadowLayer?.path = path?.cgPath
+                    strokeLayer?.path = path?.cgPath
+                }
 
             default: break
             }
         }
-
     
     @IBAction func onClickColorBtn(_ sender: UIButton) {
+        shadowLayer?.removeFromSuperlayer()
+        shadowLayer = nil
+        firstPoint = nil
+        
         strokeLayer?.removeFromSuperlayer()
         strokeLayer = nil
 
@@ -124,7 +127,16 @@ class LazoViewController: UIViewController {
     }
     
     @IBAction func onClickTrashBtn(_ sender: Any) {
+        firstPoint = nil
         lassoImg.image = UIImage()
+    }
+    
+    @IBAction func onClickChangeBtn(_ sender: Any) {
+        firstPoint = nil
+        lassoImg.image = UIImage()
+        
+        index = index < (images.count - 1) ? index + 1 : 0
+        imageView.image = images[index]
     }
 }
 

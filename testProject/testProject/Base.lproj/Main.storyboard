@@ -427,6 +427,20 @@
                                     <action selector="onClickTrashBtn:" destination="vzs-kS-8xa" eventType="touchUpInside" id="0CZ-7z-WCS"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uar-EL-KLU">
+                                <rect key="frame" x="364" y="687" width="40" height="40"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="B3M-8U-Jfg"/>
+                                    <constraint firstAttribute="height" constant="40" id="xv2-5s-srG"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="arrow.triangle.2.circlepath" catalog="system"/>
+                                <connections>
+                                    <action selector="onClickChangeBtn:" destination="vzs-kS-8xa" eventType="touchUpInside" id="cdh-TK-hmH"/>
+                                    <action selector="onClickTrashBtn:" destination="vzs-kS-8xa" eventType="touchUpInside" id="bIx-IH-QMI"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="k9i-HQ-plH"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -435,6 +449,8 @@
                             <constraint firstItem="k9i-HQ-plH" firstAttribute="bottom" secondItem="a7E-3H-gVj" secondAttribute="bottom" constant="15" id="1JR-ee-0G4"/>
                             <constraint firstItem="1hG-cx-zmG" firstAttribute="top" secondItem="k9i-HQ-plH" secondAttribute="top" constant="10" id="8cB-nc-Xkf"/>
                             <constraint firstItem="dDx-lo-x16" firstAttribute="centerX" secondItem="Dt2-Jj-AP2" secondAttribute="centerX" id="8pV-JA-xyf"/>
+                            <constraint firstItem="k9i-HQ-plH" firstAttribute="trailing" secondItem="uar-EL-KLU" secondAttribute="trailing" constant="10" id="9Hk-4l-Sc7"/>
+                            <constraint firstItem="c62-Mb-pmQ" firstAttribute="top" secondItem="uar-EL-KLU" secondAttribute="bottom" constant="20" id="AKK-Zo-Jsp"/>
                             <constraint firstItem="z5b-ZE-OnW" firstAttribute="leading" secondItem="1FM-zj-cs4" secondAttribute="leading" id="AXJ-mX-kLE"/>
                             <constraint firstItem="dDx-lo-x16" firstAttribute="leading" secondItem="a7E-3H-gVj" secondAttribute="trailing" constant="20" id="AXP-Id-n6i"/>
                             <constraint firstItem="z5b-ZE-OnW" firstAttribute="top" secondItem="1FM-zj-cs4" secondAttribute="top" id="EAt-1M-Ivr"/>
@@ -492,6 +508,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="arrow.triangle.2.circlepath" catalog="system" width="128" height="101"/>
         <image name="trash" catalog="system" width="121" height="128"/>
         <image name="vegeta" width="900" height="1600"/>
         <namedColor name="AccentColor">
