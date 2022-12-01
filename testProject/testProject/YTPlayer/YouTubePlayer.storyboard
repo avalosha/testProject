@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="landscape" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--You Tube View Controller-->
+        <scene sceneID="s0d-6b-0kx">
+            <objects>
+                <viewController storyboardIdentifier="YoutubePlayerID" modalTransitionStyle="crossDissolve" modalPresentationStyle="overFullScreen" id="Y6W-OH-hqX" customClass="YouTubeViewController" customModule="testProject" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
+                        <rect key="frame" x="0.0" y="0.0" width="896" height="414"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MWi-5J-vZB" customClass="WKYTPlayerView">
+                                <rect key="frame" x="80" y="0.0" width="736" height="414"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="MWi-5J-vZB" secondAttribute="height" multiplier="16:9" id="JRa-EI-lss"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="MWi-5J-vZB" firstAttribute="height" secondItem="5EZ-qb-Rvc" secondAttribute="height" id="FHE-MV-XBY"/>
+                            <constraint firstItem="MWi-5J-vZB" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" id="IA5-g3-Unr"/>
+                            <constraint firstAttribute="bottom" secondItem="MWi-5J-vZB" secondAttribute="bottom" id="MIo-tI-gL1"/>
+                            <constraint firstItem="MWi-5J-vZB" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="bDb-KH-e3z"/>
+                            <constraint firstItem="MWi-5J-vZB" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" id="fvY-6q-L03"/>
+                            <constraint firstItem="MWi-5J-vZB" firstAttribute="leading" secondItem="5EZ-qb-Rvc" secondAttribute="leading" id="h9u-Hc-2D2"/>
+                            <constraint firstAttribute="trailing" secondItem="MWi-5J-vZB" secondAttribute="trailing" id="jTx-Qv-Ylj"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="IA5-g3-Unr"/>
+                                <exclude reference="MIo-tI-gL1"/>
+                                <exclude reference="h9u-Hc-2D2"/>
+                                <exclude reference="jTx-Qv-Ylj"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="playerView" destination="MWi-5J-vZB" id="c5d-uz-R7A"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="132" y="84"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
