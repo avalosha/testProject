@@ -39,17 +39,17 @@ class LazoViewController: UIViewController {
                 strokeLayer = CAShapeLayer()
                 imageView.layer.addSublayer(strokeLayer!)
                 
-//                strokeLayer?.strokeColor = #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1).cgColor
-//                strokeLayer?.fillColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0).cgColor
-//                strokeLayer?.lineWidth = 5
-                
-//                let shapeLayer = CAShapeLayer()
                 strokeLayer?.name = "DashedTopLine"
                 strokeLayer?.fillColor = UIColor.clear.cgColor
                 strokeLayer?.strokeColor = UIColor.white.cgColor
                 strokeLayer?.lineWidth = 2.0
-                strokeLayer?.lineJoin = CAShapeLayerLineJoin.round
-                strokeLayer?.lineDashPattern = [4, 4]
+                strokeLayer?.lineJoin = CAShapeLayerLineJoin.bevel
+                strokeLayer?.lineDashPattern = [5, 5] // #1 es la longitud del guión, #2 es la longitud del espacio.
+                
+                strokeLayer?.shadowColor = UIColor.black.cgColor
+                strokeLayer?.shadowOffset = CGSize(width: 0.5, height: 0.5)
+                strokeLayer?.shadowOpacity = 1.0
+                strokeLayer?.shadowRadius = 1.0
                 
                 strokeLayer?.path = path?.cgPath
                 
@@ -60,6 +60,7 @@ class LazoViewController: UIViewController {
                 
             case .cancelled, .ended:
                 print("Ended")
+                print("Path: ",path)
                 // remove stroke from image view
                 
 //                strokeLayer?.removeFromSuperlayer()
