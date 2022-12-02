@@ -33,8 +33,14 @@ class LazoViewController: UIViewController {
            imageView.isUserInteractionEnabled = true
            imageView.addGestureRecognizer(panGesture)
         
-        images.append(UIImage(named: "vegeta")!)
-        images.append(UIImage(named: "son_goku")!)
+        images.append(UIImage(named: "Imagen1")!)
+        images.append(UIImage(named: "Imagen2")!)
+        images.append(UIImage(named: "Imagen3")!)
+        images.append(UIImage(named: "Imagen4")!)
+        images.append(UIImage(named: "Imagen5")!)
+        images.append(UIImage(named: "Imagen6")!)
+        
+        imageView.image = images.first!
     }
     
     @objc func draggedView(_ gesture: UIPanGestureRecognizer) {

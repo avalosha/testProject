@@ -332,7 +332,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="vegeta" translatesAutoresizingMaskIntoConstraints="NO" id="1FM-zj-cs4" userLabel="Main Img">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1FM-zj-cs4" userLabel="Main Img">
                                 <rect key="frame" x="31" y="124" width="352" height="625.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="1FM-zj-cs4" secondAttribute="height" multiplier="9:16" id="ktT-Fj-TML"/>
@@ -510,7 +510,6 @@
     <resources>
         <image name="arrow.triangle.2.circlepath" catalog="system" width="128" height="101"/>
         <image name="trash" catalog="system" width="121" height="128"/>
-        <image name="vegeta" width="900" height="1600"/>
         <namedColor name="AccentColor">
             <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
