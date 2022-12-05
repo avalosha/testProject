@@ -333,13 +333,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1FM-zj-cs4" userLabel="Main Img">
-                                <rect key="frame" x="31" y="124" width="352" height="625.5"/>
+                                <rect key="frame" x="31" y="54" width="352" height="625.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="1FM-zj-cs4" secondAttribute="height" multiplier="9:16" id="ktT-Fj-TML"/>
                                 </constraints>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="z5b-ZE-OnW">
-                                <rect key="frame" x="31" y="124" width="352" height="625.5"/>
+                                <rect key="frame" x="31" y="54" width="352" height="625.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a7E-3H-gVj">
@@ -390,7 +390,7 @@
                                     <action selector="onClickColorBtn:" destination="vzs-kS-8xa" eventType="touchUpInside" id="MBR-31-2GU"/>
                                 </connections>
                             </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5Fw-3g-zRf" userLabel="Component Img">
+                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5Fw-3g-zRf" userLabel="Component Img">
                                 <rect key="frame" x="300.5" y="54" width="103.5" height="184"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="5Fw-3g-zRf" secondAttribute="height" multiplier="9:16" id="W5A-DH-jwT"/>
@@ -402,7 +402,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1hG-cx-zmG" userLabel="Original Img">
+                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1hG-cx-zmG" userLabel="Original Img">
                                 <rect key="frame" x="10" y="54" width="103.5" height="184"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="1hG-cx-zmG" secondAttribute="height" multiplier="9:16" id="oAX-nY-Z6T"/>
@@ -494,7 +494,7 @@
                             <constraint firstItem="KAF-Ld-npt" firstAttribute="trailing" secondItem="5Fw-3g-zRf" secondAttribute="trailing" id="XbZ-iR-6hW"/>
                             <constraint firstItem="z5b-ZE-OnW" firstAttribute="bottom" secondItem="1FM-zj-cs4" secondAttribute="bottom" id="akv-ZD-LIT"/>
                             <constraint firstItem="dDx-lo-x16" firstAttribute="top" secondItem="4MV-w1-SvE" secondAttribute="bottom" constant="20" id="awK-I1-ofc"/>
-                            <constraint firstItem="1FM-zj-cs4" firstAttribute="top" secondItem="k9i-HQ-plH" secondAttribute="top" constant="80" id="dZa-sV-cUd"/>
+                            <constraint firstItem="1FM-zj-cs4" firstAttribute="top" secondItem="k9i-HQ-plH" secondAttribute="top" constant="10" id="dZa-sV-cUd"/>
                             <constraint firstItem="4MV-w1-SvE" firstAttribute="centerX" secondItem="Dt2-Jj-AP2" secondAttribute="centerX" constant="-35" id="g7Z-JU-Ciw"/>
                             <constraint firstItem="cow-4C-SvH" firstAttribute="leading" secondItem="k9i-HQ-plH" secondAttribute="leading" constant="10" id="gan-r0-S0O"/>
                             <constraint firstItem="JG4-X9-wzd" firstAttribute="trailing" secondItem="1hG-cx-zmG" secondAttribute="trailing" id="gzn-eN-bBW"/>

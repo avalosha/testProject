@@ -7,6 +7,12 @@
 
 import UIKit
 
+struct Historial {
+    var type: Int
+    var path: UIBezierPath?
+    var img: UIImage?
+}
+
 class LazoViewController: UIViewController {
 
     @IBOutlet weak var imageView: UIImageView!
@@ -29,8 +35,9 @@ class LazoViewController: UIViewController {
     private var images = [UIImage]()
     private var index = 0
     private var blocked = false
-    private var historial = [UIImage]()
+    
     private var idHistorial = 0
+    private var fullHistorial = [Historial]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,6 +59,49 @@ class LazoViewController: UIViewController {
         redoBtn.isEnabled = false
     }
     
+    private func setupLayer() {
+        strokeLayer = CAShapeLayer()
+        shadowLayer = CAShapeLayer()
+        
+        imageView.layer.addSublayer(shadowLayer!)
+        imageView.layer.addSublayer(strokeLayer!)
+        
+        shadowLayer?.name = "DashedBottonLine"
+        shadowLayer?.fillColor = UIColor.clear.cgColor
+        shadowLayer?.strokeColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.6).cgColor //UIColor.black.cgColor
+        shadowLayer?.lineWidth = 3.0
+        shadowLayer?.lineJoin = CAShapeLayerLineJoin.round
+        
+        strokeLayer?.name = "DashedTopLine"
+        strokeLayer?.fillColor = UIColor.clear.cgColor
+        strokeLayer?.strokeColor = UIColor.white.cgColor
+        strokeLayer?.lineWidth = 2.5
+        strokeLayer?.lineJoin = CAShapeLayerLineJoin.round
+        strokeLayer?.lineDashPattern = [6, 6] // #1 es la longitud del guión, #2 es la longitud del espacio.
+        
+        shadowLayer?.path = path?.cgPath
+        strokeLayer?.path = path?.cgPath
+    }
+    
+    private func removeLayer() {
+        shadowLayer?.removeFromSuperlayer()
+        shadowLayer = nil
+        
+        strokeLayer?.removeFromSuperlayer()
+        strokeLayer = nil
+    }
+    
+    private func resetScreen() {
+        firstPoint = nil
+        idHistorial = 0
+        fullHistorial.removeAll()
+        originalImg.image = nil
+        componentImg.image = nil
+        lassoImg.image = UIImage()
+        redoBtn.isEnabled = false
+        undoBtn.isEnabled = false
+    }
+    
     @objc func draggedView(_ gesture: UIPanGestureRecognizer) {
         guard blocked == false else { return }
             let location = gesture.location(in: imageView)
@@ -63,31 +113,10 @@ class LazoViewController: UIViewController {
                 path?.move(to: location)
                 
                 firstPoint = location
-                
-                strokeLayer = CAShapeLayer()
-                shadowLayer = CAShapeLayer()
-                
-                imageView.layer.addSublayer(shadowLayer!)
-                imageView.layer.addSublayer(strokeLayer!)
-                
-                shadowLayer?.name = "DashedBottonLine"
-                shadowLayer?.fillColor = UIColor.clear.cgColor
-                shadowLayer?.strokeColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.6).cgColor //UIColor.black.cgColor
-                shadowLayer?.lineWidth = 3.0
-                shadowLayer?.lineJoin = CAShapeLayerLineJoin.round
-                
-                strokeLayer?.name = "DashedTopLine"
-                strokeLayer?.fillColor = UIColor.clear.cgColor
-                strokeLayer?.strokeColor = UIColor.white.cgColor
-                strokeLayer?.lineWidth = 2.5
-                strokeLayer?.lineJoin = CAShapeLayerLineJoin.round
-                strokeLayer?.lineDashPattern = [6, 6] // #1 es la longitud del guión, #2 es la longitud del espacio.
-                
-                shadowLayer?.path = path?.cgPath
-                strokeLayer?.path = path?.cgPath
+                setupLayer()
                 
             case .changed:
-                print("Changed")
+//                print("Changed")
                 path?.addLine(to: location)
                 shadowLayer?.path = path?.cgPath
                 strokeLayer?.path = path?.cgPath
@@ -100,6 +129,25 @@ class LazoViewController: UIViewController {
                     path?.addLine(to: p0)
                     shadowLayer?.path = path?.cgPath
                     strokeLayer?.path = path?.cgPath
+                    
+                    print("______________________LAZO_______________________________")
+                    print("idHistorial: ",idHistorial," total: ",fullHistorial.count)
+                    // Eliminar elementos guardados adelante del indice actual
+                    if idHistorial < fullHistorial.count {
+                        for index in (0..<fullHistorial.count).reversed() {
+                            if idHistorial < index {
+                                fullHistorial.remove(at: index)
+                            } else {
+                                break
+                            }
+                        }
+                        redoBtn.isEnabled = false
+                    }
+                    // Guarda el lazo e imagen actual
+                    fullHistorial.append(Historial(type: 1, path: self.path, img: self.lassoImg.image))
+                    // Indice actual
+                    idHistorial = fullHistorial.count
+                    print("idHistorial: ",idHistorial," total: ",fullHistorial.count)
                 }
 
             default: break
@@ -147,42 +195,59 @@ class LazoViewController: UIViewController {
         // Obtiene imagen actual
         let screenShoot = lassoImg.makeImageFrom()
         // Obtiene imagen previa
-        let previousImage = historial.isEmpty ? nil : historial[idHistorial - 1]
-        // Muestra componente imagen actual
+        var previousImage = UIImage()
+        if fullHistorial.isEmpty == false {
+            let tempIndex = (idHistorial - 1) >= 0 ? idHistorial - 1 : 0
+            let item = fullHistorial[tempIndex]
+            if let img = item.img {
+                previousImage = img
+            }
+        }
+        // Muestra imagen actual
         componentImg.image = screenShoot
-        // Muestra componente imagen previa
+        // Muestra imagen previa
         originalImg.image = previousImage
         // Merge imagen anterior + imagen actual
         let mergeImg = mergedImageWith(frontImage: screenShoot, backgroundImage: previousImage)
         // Muestra imagen completa actual
         lassoImg.image = mergeImg
-        // Guarda imagen actual
-        historial.append(mergeImg)
+        // Eliminar elementos guardados adelante del indice actual
+        print("________________________COLOR___________________________")
+        print("idHistorial: ",idHistorial," total: ",fullHistorial.count)
         
-        if historial.count > 4 {
-            historial.remove(at: 0)
+        if idHistorial < fullHistorial.count {
+            for index in (0..<fullHistorial.count).reversed() {
+                if idHistorial < index {
+                    fullHistorial.remove(at: index)
+                } else {
+                    break
+                }
+            }
+            redoBtn.isEnabled = false
         }
-        
-        idHistorial = historial.count
-        undoBtn.isEnabled = historial.count > 0
+        // Guarda imagen actual
+        fullHistorial.append(Historial(type: 2, path: nil, img: mergeImg))
+        // Elimina el elemento más viejo
+        if fullHistorial.count > 3 {
+            fullHistorial.remove(at: 0)
+        }
+        // Indice actual
+        idHistorial = fullHistorial.count
+        undoBtn.isEnabled = fullHistorial.count > 0
+        print("idHistorial: ",idHistorial," total: ",fullHistorial.count)
     }
     
     @IBAction func onClickColorBtn(_ sender: UIButton) {
+        guard blocked == true else { return }
         fillColorInsideLasso(with: sender.tag)
     }
     
     @IBAction func onClickTrashBtn(_ sender: Any) {
-        firstPoint = nil
-        idHistorial = 0
-        historial.removeAll()
-        originalImg.image = nil
-        componentImg.image = nil
-        lassoImg.image = UIImage()
+        resetScreen()
     }
     
     @IBAction func onClickChangeBtn(_ sender: Any) {
-        firstPoint = nil
-        lassoImg.image = UIImage()
+        resetScreen()
 
         index = index < (images.count - 1) ? index + 1 : 0
         imageView.image = images[index]
@@ -190,20 +255,50 @@ class LazoViewController: UIViewController {
     
     @IBAction func onClickUndoBtn(_ sender: Any) {
         guard idHistorial > 0 else { return }
-        idHistorial = idHistorial == 4 ? idHistorial - 2 : idHistorial - 1
-        let tempImg = historial[idHistorial]
-        lassoImg.image = tempImg
+        print("_______________________UNDO_____________________________")
+        print("idHistorial: ",idHistorial," total: ",fullHistorial.count)
+        idHistorial = idHistorial == fullHistorial.count ? idHistorial - 2 : idHistorial - 1
+        
+        let item = fullHistorial[idHistorial]
+        if item.type == 1, let tempPath = item.path, let img = item.img {
+            path = tempPath
+            lassoImg.image = img
+            setupLayer()
+            blocked = true
+        } else if item.type == 2, let img = item.img {
+            path = nil
+            lassoImg.image = img
+            removeLayer()
+            blocked = false
+        }
+        
         undoBtn.isEnabled = idHistorial > 0
-        redoBtn.isEnabled = idHistorial < historial.count
+        redoBtn.isEnabled = idHistorial < fullHistorial.count
+        print("idHistorial: ",idHistorial," total: ",fullHistorial.count)
     }
     
     @IBAction func onClickRedoBtn(_ sender: Any) {
-        guard idHistorial < historial.count - 1 else { return }
+        guard idHistorial < fullHistorial.count - 1 else { return }
+        print("________________________REDO____________________________")
+        print("idHistorial: ",idHistorial," total: ",fullHistorial.count)
         idHistorial += 1
-        let tempImg = historial[idHistorial]
-        lassoImg.image = tempImg
+        
+        let item = fullHistorial[idHistorial]
+        if item.type == 1, let tempPath = item.path, let img = item.img {
+            path = tempPath
+            lassoImg.image = img
+            setupLayer()
+            blocked = true
+        } else if item.type == 2, let img = item.img {
+            path = nil
+            lassoImg.image = img
+            removeLayer()
+            blocked = false
+        }
+        
         undoBtn.isEnabled = idHistorial > 0
-        redoBtn.isEnabled = idHistorial < historial.count - 1
+        redoBtn.isEnabled = idHistorial < fullHistorial.count - 1
+        print("idHistorial: ",idHistorial," total: ",fullHistorial.count)
     }
 }
 
