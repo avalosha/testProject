@@ -529,7 +529,7 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZsH-rR-xvp">
                                 <rect key="frame" x="18" y="108" width="378" height="557.5"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="CbL-iH-G1l">
                                 <rect key="frame" x="28" y="118" width="358" height="537.5"/>
@@ -538,7 +538,35 @@
                                     <constraint firstAttribute="width" secondItem="CbL-iH-G1l" secondAttribute="height" multiplier="2:3" id="ZLX-Io-1bL"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bRA-ri-cqF">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QPp-2U-c1l">
+                                <rect key="frame" x="10" y="58" width="100" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="hjL-bY-noU"/>
+                                    <constraint firstAttribute="height" constant="35" id="zI3-3R-SgX"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Identificador"/>
+                                <connections>
+                                    <action selector="onClickIdentificadorBtn:" destination="XA0-3l-Qrh" eventType="touchUpInside" id="nck-Ln-3be"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fC9-YC-c8I">
+                                <rect key="frame" x="130" y="58" width="80" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="dal-fa-kV5"/>
+                                    <constraint firstAttribute="width" constant="80" id="kZc-Ej-AMO"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Brocha"/>
+                                <connections>
+                                    <action selector="onClickBrochaBtn:" destination="XA0-3l-Qrh" eventType="touchUpInside" id="oqy-EI-XYa"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bRA-ri-cqF" userLabel="Galeria">
                                 <rect key="frame" x="354" y="58" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="K8I-UD-qqM"/>
@@ -598,13 +626,30 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KYe-HG-CEi" userLabel="Reload">
+                                <rect key="frame" x="284" y="58" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="FY3-y7-FUM"/>
+                                    <constraint firstAttribute="height" constant="50" id="pBl-92-fP2"/>
+                                </constraints>
+                                <color key="tintColor" red="1" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="arrow.counterclockwise" catalog="system"/>
+                                <connections>
+                                    <action selector="onClickReloadBtn:" destination="XA0-3l-Qrh" eventType="touchUpInside" id="JOj-G0-T7z"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ijY-Wk-iSS"/>
                         <color key="backgroundColor" systemColor="systemMintColor"/>
                         <constraints>
+                            <constraint firstItem="fC9-YC-c8I" firstAttribute="leading" secondItem="QPp-2U-c1l" secondAttribute="trailing" constant="20" id="3Eq-SJ-N8M"/>
                             <constraint firstItem="ZsH-rR-xvp" firstAttribute="top" secondItem="CbL-iH-G1l" secondAttribute="top" constant="-10" id="3Wb-Lv-8Xx"/>
+                            <constraint firstItem="QPp-2U-c1l" firstAttribute="leading" secondItem="asT-yd-M2F" secondAttribute="leading" constant="10" id="GH8-BH-oep"/>
                             <constraint firstItem="ZsH-rR-xvp" firstAttribute="trailing" secondItem="CbL-iH-G1l" secondAttribute="trailing" constant="10" id="NJw-XN-8mE"/>
+                            <constraint firstItem="QPp-2U-c1l" firstAttribute="top" secondItem="ijY-Wk-iSS" secondAttribute="top" constant="10" id="Rce-eX-QQb"/>
                             <constraint firstItem="ZsH-rR-xvp" firstAttribute="bottom" secondItem="CbL-iH-G1l" secondAttribute="bottom" constant="10" id="ULb-bJ-ACf"/>
+                            <constraint firstItem="fC9-YC-c8I" firstAttribute="top" secondItem="ijY-Wk-iSS" secondAttribute="top" constant="10" id="W03-GM-fDD"/>
                             <constraint firstItem="ZsH-rR-xvp" firstAttribute="leading" secondItem="CbL-iH-G1l" secondAttribute="leading" constant="-10" id="bHC-zC-YQD"/>
                             <constraint firstItem="bRA-ri-cqF" firstAttribute="top" secondItem="ijY-Wk-iSS" secondAttribute="top" constant="10" id="d7M-QL-ZLo"/>
                             <constraint firstItem="CbL-iH-G1l" firstAttribute="top" secondItem="bRA-ri-cqF" secondAttribute="bottom" constant="10" id="eyB-1C-fa0"/>
@@ -615,10 +660,15 @@
                             <constraint firstItem="ln2-em-2wW" firstAttribute="trailing" secondItem="ZsH-rR-xvp" secondAttribute="trailing" id="n4e-JF-y4g"/>
                             <constraint firstItem="ijY-Wk-iSS" firstAttribute="trailing" secondItem="bRA-ri-cqF" secondAttribute="trailing" constant="10" id="sRv-Di-ZVv"/>
                             <constraint firstItem="CbL-iH-G1l" firstAttribute="centerX" secondItem="ijY-Wk-iSS" secondAttribute="centerX" id="tcQ-Em-qXj"/>
+                            <constraint firstItem="bRA-ri-cqF" firstAttribute="leading" secondItem="KYe-HG-CEi" secondAttribute="trailing" constant="20" id="tse-Bn-y1N"/>
+                            <constraint firstItem="KYe-HG-CEi" firstAttribute="top" secondItem="ijY-Wk-iSS" secondAttribute="top" constant="10" id="zZj-XZ-bOk"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="backView" destination="ZsH-rR-xvp" id="UgE-p0-qm4"/>
+                        <outlet property="brochaBtn" destination="fC9-YC-c8I" id="csT-jw-XBA"/>
                         <outlet property="colorsTableView" destination="ln2-em-2wW" id="hfv-jx-Ox7"/>
+                        <outlet property="identificadorBtn" destination="QPp-2U-c1l" id="Lfr-3M-GLC"/>
                         <outlet property="mainImgView" destination="CbL-iH-G1l" id="oh9-Ve-b5M"/>
                     </connections>
                 </viewController>
@@ -646,6 +696,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="arrow.counterclockwise" catalog="system" width="113" height="128"/>
         <image name="arrow.triangle.2.circlepath" catalog="system" width="128" height="104"/>
         <image name="arrowshape.turn.up.backward" catalog="system" width="128" height="104"/>
         <image name="arrowshape.turn.up.right" catalog="system" width="128" height="104"/>

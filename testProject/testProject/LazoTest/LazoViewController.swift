@@ -302,25 +302,6 @@ class LazoViewController: UIViewController {
     }
 }
 
-extension UIView {
-    var snapshot: UIImage {
-        UIGraphicsImageRenderer(bounds: bounds).image { _ in
-            drawHierarchy(in: bounds, afterScreenUpdates: true)
-        }
-    }
-    
-    /// Función para tomar screenshot de todo lo que contenga el view correspondiente.
-    /// - Returns: UIImage del screenshot.
-    func makeImageFrom() -> UIImage {
-        let size = CGSize(width: self.bounds.width, height: self.bounds.height)
-        let renderer = UIGraphicsImageRenderer(size: size)
-        let image = renderer.image { (ctx) in
-            self.drawHierarchy(in: CGRect(origin: .zero, size: size), afterScreenUpdates: true)
-        }
-        return image
-    }
-}
-
 extension LazoViewController {
     func mergedImageWith(frontImage:UIImage?, backgroundImage: UIImage?) -> UIImage {
 
@@ -340,3 +321,107 @@ extension LazoViewController {
         return newImage
     }
 }
+
+extension UIView {
+    var snapshot: UIImage {
+        UIGraphicsImageRenderer(bounds: bounds).image { _ in
+            drawHierarchy(in: bounds, afterScreenUpdates: true)
+        }
+    }
+    
+    /// Función para tomar screenshot de todo lo que contenga el view correspondiente.
+    /// - Returns: UIImage del screenshot.
+    func makeImageFrom() -> UIImage {
+        let size = CGSize(width: self.bounds.width, height: self.bounds.height)
+        let renderer = UIGraphicsImageRenderer(size: size)
+        let image = renderer.image { (ctx) in
+            self.drawHierarchy(in: CGRect(origin: .zero, size: size), afterScreenUpdates: true)
+        }
+        return image
+    }
+    
+    func anchor(top: NSLayoutYAxisAnchor?, leading: NSLayoutXAxisAnchor?, bottom: NSLayoutYAxisAnchor?, trailing: NSLayoutXAxisAnchor?, padding: UIEdgeInsets = .zero,size: CGSize = .zero) {
+        
+        translatesAutoresizingMaskIntoConstraints  = false
+        if let top = top{
+            topAnchor.constraint(equalTo: top, constant: padding.top).isActive = true
+        }
+        
+        if let leading = leading{
+            leadingAnchor.constraint(equalTo: leading, constant: padding.left).isActive = true
+        }
+        
+        if let bottom = bottom{
+            bottomAnchor.constraint(equalTo: bottom, constant: -padding.bottom).isActive = true
+        }
+        if let trailing = trailing{
+            trailingAnchor.constraint(equalTo: trailing, constant: -padding.right).isActive = true
+        }
+        
+        if size.width != 0 {
+            widthAnchor.constraint(equalToConstant: size.width).isActive = true
+        }
+        
+        if size.height != 0{
+            heightAnchor.constraint(equalToConstant: size.height).isActive = true
+        }
+    }
+    
+}
+
+extension CALayer {
+    
+    /// Máscara para redondear solo las esquinas inferiores del layer.
+    /// - Parameter radius: CGFloat con el radio de las esquinas a redondear.
+    func cornerBottomRadius(radius : CGFloat){
+        self.cornerRadius = radius
+        self.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+    }
+    
+    /// Máscara para redondear solo las esquinas superiores del layer.
+    /// - Parameter radius: CGFloat con el radio de las esquinas a redondear.
+    func cornerTopRadius(radius : CGFloat){
+        self.cornerRadius = radius
+        self.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+    }
+    
+    /// Máscara para redondear solo las esquinas del lateral derecho del layer.
+    /// - Parameter radius: CGFloat con el radio de las esquinas a redondear.
+    func cornerLeadingRadius(radius : CGFloat){
+        self.cornerRadius = radius
+        self.maskedCorners = [.layerMaxXMinYCorner, .layerMaxXMaxYCorner]
+        self.masksToBounds = true
+    }
+    
+    /// Máscara para redondear solo las esquinas del lateral izquierdo del layer.
+    /// - Parameter radius: CGFloat con el radio de las esquinas a redondear.
+    func cornerTrailingRadius(radius : CGFloat){
+        self.cornerRadius = radius
+        self.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
+        self.masksToBounds = true
+    }
+    
+    func cornerTrailingTopRadius(radius : CGFloat){
+        self.cornerRadius = radius
+        self.maskedCorners = [.layerMinXMinYCorner]
+        self.masksToBounds = true
+    }
+    
+    func cornerLeadingTopRadius(radius : CGFloat){
+        self.cornerRadius = radius
+        self.maskedCorners = [.layerMaxXMinYCorner]
+        self.masksToBounds = true
+    }
+    
+    func cornerLeadingTopTrailingBottomRadius(radius : CGFloat){
+        self.cornerRadius = radius
+        self.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMaxYCorner]
+        self.masksToBounds = true
+    }
+    
+    func cornerFullRadius(radius : CGFloat){
+        self.cornerRadius = radius
+        self.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner, .layerMinXMinYCorner, .layerMaxXMinYCorner]
+    }
+}
+
