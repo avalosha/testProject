@@ -24,6 +24,7 @@ class IdentificadorViewController: UIViewController {
     private var point: CGPoint?
     private var currentImg: UIImage?
     private var currentColor: String?
+    private var originalImg: UIImage?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -96,10 +97,13 @@ class IdentificadorViewController: UIViewController {
         mainImgView.image = nil
         identifierColors.removeAll()
         colorsTableView.reloadData()
+        mainImgView.subviews.forEach { $0.removeFromSuperview() }
+        mainImgView.image = originalImg
     }
     
     @IBAction func onClickReloadBtn(_ sender: Any) {
-        mainImgView.image = currentImg
+        mainImgView.image = originalImg
+        currentImg = originalImg
         mainImgView.subviews.forEach { $0.removeFromSuperview() }
     }
 }
@@ -273,6 +277,7 @@ extension IdentificadorViewController: CropViewControllerDelegate{
     
     func cropView(image: UIImage?) {
         guard let img = image else { return }
+        originalImg = img
         currentImg = img
         
         if type == 0 {
