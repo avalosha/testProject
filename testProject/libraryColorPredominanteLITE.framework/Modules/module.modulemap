@@ -1,0 +1,11 @@
+framework module libraryColorPredominanteLITE {
+  umbrella header "libraryColorPredominanteLITE.h"
+
+  export *
+  module * { export * }
+}
+
+module libraryColorPredominanteLITE.Swift {
+  header "libraryColorPredominanteLITE-Swift.h"
+  requires objc
+}
