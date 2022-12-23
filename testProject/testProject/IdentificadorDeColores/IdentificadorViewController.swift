@@ -77,6 +77,7 @@ class IdentificadorViewController: UIViewController {
     }
     
     @IBAction func onClickGaleryBtn(_ sender: Any) {
+        mainImgView.subviews.forEach { $0.removeFromSuperview() }
         self.present(imagePickerController, animated: true, completion: nil)
     }
     
