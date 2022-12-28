@@ -6,11 +6,11 @@
 	<dict>
 		<key>Headers/OpenCVWrapper.hpp</key>
 		<data>
-		nv9gIT2g9vveFJjtf04xL0HtYe4=
+		tQ/pYJGEmyxeRiDjSWrcgO31hzc=
 		</data>
 		<key>Headers/libraryColorPredominanteLITE-Swift.h</key>
 		<data>
-		TkbtfleM93mdMAO9ijPVsVxhjiI=
+		2FjhlugGlE2wgxGIobHuQRJij6M=
 		</data>
 		<key>Headers/libraryColorPredominanteLITE.h</key>
 		<data>
@@ -18,11 +18,11 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		M7MEb4SX2duSvMDa6zJANJQjATc=
+		GO3Cc0kVpYKglHSBcE1DXtfyhEk=
 		</data>
 		<key>Modules/libraryColorPredominanteLITE.swiftmodule/Project/arm64-apple-ios.swiftsourceinfo</key>
 		<data>
-		+WSfZzGqRDy33qULPUooU1J7wv8=
+		QYgCv3wACJDSAW5TtTzmM+r/FvE=
 		</data>
 		<key>Modules/libraryColorPredominanteLITE.swiftmodule/arm64-apple-ios.abi.json</key>
 		<data>
@@ -30,11 +30,11 @@
 		</data>
 		<key>Modules/libraryColorPredominanteLITE.swiftmodule/arm64-apple-ios.swiftdoc</key>
 		<data>
-		E5BmNy6TKlBCmK7n7RLiw7Ea8PM=
+		oxa/GnC4dVt32QfpG0nLQWs49/A=
 		</data>
 		<key>Modules/libraryColorPredominanteLITE.swiftmodule/arm64-apple-ios.swiftmodule</key>
 		<data>
-		7nC/yPtkwhtd0XeaL83Uy/Bw0T4=
+		URTuSe9E1MQcqsb6t4HeZKdaT7k=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -47,14 +47,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			ux4PxRuyTVsgwGlhlDud7q4D7m2+UPq5QYY2O3ley9k=
+			wkg7+VFpIsdAvm7IpPStdWWE8bIDAAQW/LguWL0tszQ=
 			</data>
 		</dict>
 		<key>Headers/libraryColorPredominanteLITE-Swift.h</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			AfVncL21yqGGzZh6fxNaiWtoMIdYIC8gw2t5BOOky4c=
+			MephcK2qU88nhCnTvcSMTxAeU1MLB6xuUf2Ypps6GX4=
 			</data>
 		</dict>
 		<key>Headers/libraryColorPredominanteLITE.h</key>
@@ -68,7 +68,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			sfIL7ybyrur+Bnij0BGdxtcbIYVtFu2QJ54ZR4sJFfI=
+			0LOSJc6mAJOARnjYHgYrZo1WZ8f0khddzQQqi12JjVg=
 			</data>
 		</dict>
 		<key>Modules/libraryColorPredominanteLITE.swiftmodule/arm64-apple-ios.abi.json</key>
@@ -82,14 +82,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			l0KVAUgrhCrObN6CnfFc7ely5sERu0nNhAI6dfEfYcI=
+			Te7VJYPAlA05sojhBQ0/6gUKU1jMtBNoLF3vJG7T28E=
 			</data>
 		</dict>
 		<key>Modules/libraryColorPredominanteLITE.swiftmodule/arm64-apple-ios.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			x2JC9xc5pRg9zUZERvV2QQh221P4qnKgGAS1l9GUrnI=
+			QBrrpMAB2VKxtCU4zwwDMSmKgSQHGIc+ZH9YFDM+qJk=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
