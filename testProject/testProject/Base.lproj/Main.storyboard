@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="XA0-3l-Qrh">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="XA0-3l-Qrh">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -541,7 +541,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QPp-2U-c1l">
                                 <rect key="frame" x="10" y="58" width="100" height="35"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="hjL-bY-noU"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="hjL-bY-noU"/>
                                     <constraint firstAttribute="height" constant="35" id="zI3-3R-SgX"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
@@ -556,7 +556,7 @@
                                 <rect key="frame" x="130" y="58" width="80" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="dal-fa-kV5"/>
-                                    <constraint firstAttribute="width" constant="80" id="kZc-Ej-AMO"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="kZc-Ej-AMO"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -566,7 +566,7 @@
                                     <action selector="onClickBrochaBtn:" destination="XA0-3l-Qrh" eventType="touchUpInside" id="oqy-EI-XYa"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bRA-ri-cqF" userLabel="Galeria">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bRA-ri-cqF" userLabel="Galeria Btn">
                                 <rect key="frame" x="354" y="58" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="K8I-UD-qqM"/>
@@ -579,8 +579,22 @@
                                     <action selector="onClickGaleryBtn:" destination="XA0-3l-Qrh" eventType="touchUpInside" id="zES-N0-pJd"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k3p-cl-Apf" userLabel="Undo Btn">
+                                <rect key="frame" x="10" y="645.5" width="50" height="50"/>
+                                <color key="backgroundColor" systemColor="systemGrayColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="i1Y-ZO-KBS"/>
+                                    <constraint firstAttribute="width" constant="50" id="si2-wF-Jsc"/>
+                                </constraints>
+                                <color key="tintColor" red="1" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="arrowshape.turn.up.left" catalog="system"/>
+                                <connections>
+                                    <action selector="onClickUndoBtn:" destination="XA0-3l-Qrh" eventType="touchUpInside" id="99n-qt-4UY"/>
+                                </connections>
+                            </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="ln2-em-2wW">
-                                <rect key="frame" x="18" y="685.5" width="378" height="190.5"/>
+                                <rect key="frame" x="18" y="695.5" width="378" height="190.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ColorCell" id="WTj-SF-UlM" customClass="ColorCell" customModule="testProject" customModuleProvider="target">
@@ -626,7 +640,7 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KYe-HG-CEi" userLabel="Reload">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KYe-HG-CEi" userLabel="Trash Btn">
                                 <rect key="frame" x="284" y="58" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="FY3-y7-FUM"/>
@@ -634,9 +648,23 @@
                                 </constraints>
                                 <color key="tintColor" red="1" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" image="arrow.counterclockwise" catalog="system"/>
+                                <state key="normal" image="trash" catalog="system"/>
                                 <connections>
-                                    <action selector="onClickReloadBtn:" destination="XA0-3l-Qrh" eventType="touchUpInside" id="JOj-G0-T7z"/>
+                                    <action selector="onClickTrashBtn:" destination="XA0-3l-Qrh" eventType="touchUpInside" id="2Qs-DR-WUk"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="at4-3c-c7N" userLabel="Redo Btn">
+                                <rect key="frame" x="354" y="645.5" width="50" height="50"/>
+                                <color key="backgroundColor" systemColor="systemGrayColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="sel-45-DZF"/>
+                                    <constraint firstAttribute="width" constant="50" id="z7u-kB-whl"/>
+                                </constraints>
+                                <color key="tintColor" red="1" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="arrowshape.turn.up.forward" catalog="system"/>
+                                <connections>
+                                    <action selector="onClickRedoBtn:" destination="XA0-3l-Qrh" eventType="touchUpInside" id="wEE-yg-nuu"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -645,7 +673,9 @@
                         <constraints>
                             <constraint firstItem="fC9-YC-c8I" firstAttribute="leading" secondItem="QPp-2U-c1l" secondAttribute="trailing" constant="20" id="3Eq-SJ-N8M"/>
                             <constraint firstItem="ZsH-rR-xvp" firstAttribute="top" secondItem="CbL-iH-G1l" secondAttribute="top" constant="-10" id="3Wb-Lv-8Xx"/>
+                            <constraint firstItem="ln2-em-2wW" firstAttribute="top" secondItem="k3p-cl-Apf" secondAttribute="bottom" id="7c2-rm-y0S"/>
                             <constraint firstItem="QPp-2U-c1l" firstAttribute="leading" secondItem="asT-yd-M2F" secondAttribute="leading" constant="10" id="GH8-BH-oep"/>
+                            <constraint firstItem="k3p-cl-Apf" firstAttribute="leading" secondItem="ijY-Wk-iSS" secondAttribute="leading" constant="10" id="KVN-xd-IdV"/>
                             <constraint firstItem="ZsH-rR-xvp" firstAttribute="trailing" secondItem="CbL-iH-G1l" secondAttribute="trailing" constant="10" id="NJw-XN-8mE"/>
                             <constraint firstItem="QPp-2U-c1l" firstAttribute="top" secondItem="ijY-Wk-iSS" secondAttribute="top" constant="10" id="Rce-eX-QQb"/>
                             <constraint firstItem="ZsH-rR-xvp" firstAttribute="bottom" secondItem="CbL-iH-G1l" secondAttribute="bottom" constant="10" id="ULb-bJ-ACf"/>
@@ -654,13 +684,16 @@
                             <constraint firstItem="bRA-ri-cqF" firstAttribute="top" secondItem="ijY-Wk-iSS" secondAttribute="top" constant="10" id="d7M-QL-ZLo"/>
                             <constraint firstItem="CbL-iH-G1l" firstAttribute="top" secondItem="bRA-ri-cqF" secondAttribute="bottom" constant="10" id="eyB-1C-fa0"/>
                             <constraint firstItem="CbL-iH-G1l" firstAttribute="height" secondItem="asT-yd-M2F" secondAttribute="height" multiplier="0.6" id="gnt-tS-eXS"/>
-                            <constraint firstItem="ln2-em-2wW" firstAttribute="top" secondItem="ZsH-rR-xvp" secondAttribute="bottom" constant="20" id="hYL-s1-7ev"/>
+                            <constraint firstItem="ln2-em-2wW" firstAttribute="top" secondItem="ZsH-rR-xvp" secondAttribute="bottom" constant="30" id="hYL-s1-7ev"/>
                             <constraint firstItem="ln2-em-2wW" firstAttribute="leading" secondItem="ZsH-rR-xvp" secondAttribute="leading" id="iJv-Dl-yIS"/>
-                            <constraint firstItem="ln2-em-2wW" firstAttribute="bottom" secondItem="asT-yd-M2F" secondAttribute="bottom" constant="-20" id="jHT-wu-bUj"/>
+                            <constraint firstItem="ln2-em-2wW" firstAttribute="bottom" secondItem="asT-yd-M2F" secondAttribute="bottom" constant="-10" id="jHT-wu-bUj"/>
+                            <constraint firstItem="ln2-em-2wW" firstAttribute="top" secondItem="at4-3c-c7N" secondAttribute="bottom" id="kZS-Lx-b0f"/>
+                            <constraint firstItem="at4-3c-c7N" firstAttribute="trailing" secondItem="ijY-Wk-iSS" secondAttribute="trailing" constant="-10" id="n2d-HH-ks3"/>
                             <constraint firstItem="ln2-em-2wW" firstAttribute="trailing" secondItem="ZsH-rR-xvp" secondAttribute="trailing" id="n4e-JF-y4g"/>
                             <constraint firstItem="ijY-Wk-iSS" firstAttribute="trailing" secondItem="bRA-ri-cqF" secondAttribute="trailing" constant="10" id="sRv-Di-ZVv"/>
                             <constraint firstItem="CbL-iH-G1l" firstAttribute="centerX" secondItem="ijY-Wk-iSS" secondAttribute="centerX" id="tcQ-Em-qXj"/>
                             <constraint firstItem="bRA-ri-cqF" firstAttribute="leading" secondItem="KYe-HG-CEi" secondAttribute="trailing" constant="20" id="tse-Bn-y1N"/>
+                            <constraint firstItem="KYe-HG-CEi" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="fC9-YC-c8I" secondAttribute="trailing" constant="8" symbolic="YES" id="weT-bu-9g9"/>
                             <constraint firstItem="KYe-HG-CEi" firstAttribute="top" secondItem="ijY-Wk-iSS" secondAttribute="top" constant="10" id="zZj-XZ-bOk"/>
                         </constraints>
                     </view>
@@ -670,6 +703,8 @@
                         <outlet property="colorsTableView" destination="ln2-em-2wW" id="hfv-jx-Ox7"/>
                         <outlet property="identificadorBtn" destination="QPp-2U-c1l" id="Lfr-3M-GLC"/>
                         <outlet property="mainImgView" destination="CbL-iH-G1l" id="oh9-Ve-b5M"/>
+                        <outlet property="redoBtn" destination="at4-3c-c7N" id="TKC-lH-08f"/>
+                        <outlet property="undoBtn" destination="k3p-cl-Apf" id="QPf-sO-C2h"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="49i-sz-7Ew" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -696,9 +731,10 @@
         </scene>
     </scenes>
     <resources>
-        <image name="arrow.counterclockwise" catalog="system" width="113" height="128"/>
         <image name="arrow.triangle.2.circlepath" catalog="system" width="128" height="104"/>
         <image name="arrowshape.turn.up.backward" catalog="system" width="128" height="104"/>
+        <image name="arrowshape.turn.up.forward" catalog="system" width="128" height="104"/>
+        <image name="arrowshape.turn.up.left" catalog="system" width="128" height="104"/>
         <image name="arrowshape.turn.up.right" catalog="system" width="128" height="104"/>
         <image name="camera.macro" catalog="system" width="128" height="114"/>
         <image name="trash" catalog="system" width="117" height="128"/>

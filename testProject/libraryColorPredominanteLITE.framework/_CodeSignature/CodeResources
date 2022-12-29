@@ -6,7 +6,7 @@
 	<dict>
 		<key>Headers/OpenCVWrapper.hpp</key>
 		<data>
-		tQ/pYJGEmyxeRiDjSWrcgO31hzc=
+		nv9gIT2g9vveFJjtf04xL0HtYe4=
 		</data>
 		<key>Headers/libraryColorPredominanteLITE-Swift.h</key>
 		<data>
@@ -22,7 +22,7 @@
 		</data>
 		<key>Modules/libraryColorPredominanteLITE.swiftmodule/Project/arm64-apple-ios.swiftsourceinfo</key>
 		<data>
-		xbZGii0F5qauaY9BerRM0K8p0Lg=
+		Icz/lNwUaOl3IbBXCRtqu3EHCYs=
 		</data>
 		<key>Modules/libraryColorPredominanteLITE.swiftmodule/arm64-apple-ios.abi.json</key>
 		<data>
@@ -34,7 +34,7 @@
 		</data>
 		<key>Modules/libraryColorPredominanteLITE.swiftmodule/arm64-apple-ios.swiftmodule</key>
 		<data>
-		2lXwdijtV0wDMSXoV3cdaMgazcY=
+		AbmihCwfkxOzkS0RCbI812awimY=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -47,7 +47,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			wkg7+VFpIsdAvm7IpPStdWWE8bIDAAQW/LguWL0tszQ=
+			ux4PxRuyTVsgwGlhlDud7q4D7m2+UPq5QYY2O3ley9k=
 			</data>
 		</dict>
 		<key>Headers/libraryColorPredominanteLITE-Swift.h</key>
@@ -68,7 +68,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			EZD6u1IHZwKfNAESSZ5w6nokb2rgozComTnf2Be7i+M=
+			R83Ag9MMWQ/KVm4OLKcfkJ1wD3avgCh7u19ASsgzrDc=
 			</data>
 		</dict>
 		<key>Modules/libraryColorPredominanteLITE.swiftmodule/arm64-apple-ios.abi.json</key>
@@ -89,7 +89,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			j0IH+goH9FMTS89IyDq+V7OrFlGu5NuzyO+51tSnBd8=
+			UgdoBjuR9elcdYltIA3pCCOYbv4UrIt2hSSt43KAbAc=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

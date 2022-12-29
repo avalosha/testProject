@@ -16,6 +16,9 @@ class IdentificadorViewController: UIViewController {
     @IBOutlet weak var mainImgView: UIImageView!
     @IBOutlet weak var colorsTableView: UITableView!
     
+    @IBOutlet weak var undoBtn: UIButton!
+    @IBOutlet weak var redoBtn: UIButton!
+    
     private var imagePickerController : UIImagePickerController!
     private var identifierColors = [IdentifierData]()
     
@@ -25,6 +28,19 @@ class IdentificadorViewController: UIViewController {
     private var currentImg: UIImage?
     private var currentColor: String?
     private var originalImg: UIImage?
+    
+    private var drawItems = [Historial]()
+    private var drawHistorial = [Historial]()
+    private var canUndoHistorial: Bool {
+        return drawItems.count > 0
+    }
+    
+    private var canRedoHistorial: Bool {
+        return drawHistorial.count > drawItems.count
+    }
+    
+    // Contador Hacer-Deshacer
+    private var currentUndo = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,6 +90,9 @@ class IdentificadorViewController: UIViewController {
         brochaBtn.layer.borderColor = UIColor.white.cgColor
         brochaBtn.layer.borderWidth = 1.5
         identificadorBtn.isSelected = true
+        brochaBtn.isSelected = false
+        undoBtn.isHidden = true
+        redoBtn.isHidden = true
     }
     
     @IBAction func onClickGaleryBtn(_ sender: Any) {
@@ -87,6 +106,10 @@ class IdentificadorViewController: UIViewController {
         mainImgView.image = nil
         identifierColors = colors
         colorsTableView.reloadData()
+        undoBtn.isHidden = false
+        redoBtn.isHidden = false
+        undoBtn.isEnabled = false
+        redoBtn.isEnabled = false
     }
     
     @IBAction func onClickIdentificadorBtn(_ sender: Any) {
@@ -100,13 +123,33 @@ class IdentificadorViewController: UIViewController {
         colorsTableView.reloadData()
         mainImgView.subviews.forEach { $0.removeFromSuperview() }
         mainImgView.image = originalImg
+        undoBtn.isHidden = true
+        redoBtn.isHidden = true
     }
     
-    @IBAction func onClickReloadBtn(_ sender: Any) {
+    @IBAction func onClickTrashBtn(_ sender: Any) {
         mainImgView.image = originalImg
         currentImg = originalImg
         mainImgView.subviews.forEach { $0.removeFromSuperview() }
+        drawItems = []
+        drawHistorial = []
     }
+    
+    @IBAction func onClickUndoBtn(_ sender: Any) {
+        guard currentUndo < 3 else { return }
+        currentUndo += 1
+        undoChangeColor()
+        updateUndoButtons()
+    }
+    
+    @IBAction func onClickRedoBtn(_ sender: Any) {
+        if currentUndo >= 0 {
+            currentUndo -= 1
+        }
+        redoChangeColor()
+        updateUndoButtons()
+    }
+    
 }
 
 extension IdentificadorViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -220,17 +263,89 @@ extension IdentificadorViewController: UIImagePickerControllerDelegate, UINaviga
         print("resultado del centrado y redimensionado.... :")
         print(crop.size.height, crop.size.width)
         
-//        let image2 = change_color(crop, row: Int(posY), col: Int(posX), HEX: color)
-//        
-//        // Create a context of the starting image size and set it as the current one
-//        UIGraphicsBeginImageContext(image2.size)
-//        // Draw the starting image in the current context as background
-//        image2.draw(at: CGPoint.zero)
-//        // Save the context as a new UIImage
-//        let myImage = UIGraphicsGetImageFromCurrentImageContext()
-//        UIGraphicsEndImageContext()
+        let image2 = change_color(crop, row: Int(posY), col: Int(posX), HEX: color)
+        
+        // Create a context of the starting image size and set it as the current one
+        UIGraphicsBeginImageContext(image2.size)
+        // Draw the starting image in the current context as background
+        image2.draw(at: CGPoint.zero)
+        // Save the context as a new UIImage
+        let myImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
 //        currentImg = myImage
-//        mainImgView.image = myImage
+        mainImgView.image = myImage
+        
+        screenShootChangeColor()
+    }
+    
+    /// Screenshoot del cambio de color actual
+    private func screenShootChangeColor() {
+        print("________________ ScreenShoot __________________")
+        print("Index: ",drawItems.count," Historial: ",drawHistorial.count," CurrentUndo: ",currentUndo)
+        // Obtiene imagen actual
+        let screenShoot = mainImgView.image
+        // Obtiene imagen previa
+        let previousImage = drawItems.last?.img
+        // Merge imagen anterior + imagen actual
+        let mergeImg = mergedImageWith(frontImage: screenShoot, backgroundImage: previousImage)
+        // Muestra imagen completa actual
+        currentImg = mergeImg
+        mainImgView.image = mergeImg
+        // Guarda imagen actual
+        drawItems.append(Historial(type: 2, img: mergeImg))
+        drawHistorial = drawItems
+        currentUndo = 0
+        updateUndoButtons()
+        print("Index: ",drawItems.count," Historial: ",drawHistorial.count," CurrentUndo: ",currentUndo)
+    }
+    
+    private func updateUndoButtons() {
+        undoBtn.isEnabled = currentUndo < 3 ? canUndoHistorial : false
+        redoBtn.isEnabled = canRedoHistorial
+    }
+    
+    private func undoChangeColor() {
+        print("________________ Undo __________________")
+        print("Index: ",drawItems.count," Historial: ",drawHistorial.count," CurrentUndo: ",currentUndo)
+        drawItems.removeLast()
+        let item = drawItems.last
+        if item?.type == 2, let img = item?.img {
+            mainImgView.image = img
+        } else if item == nil {
+            currentImg = originalImg
+            mainImgView.image = currentImg
+        }
+        print("Index: ",drawItems.count," Historial: ",drawHistorial.count," CurrentUndo: ",currentUndo)
+    }
+    
+    private func redoChangeColor() {
+        print("________________ Redo __________________")
+        print("Index: ",drawItems.count," Historial: ",drawHistorial.count," CurrentUndo: ",currentUndo)
+        guard canRedoHistorial, drawItems.count <= drawHistorial.count else { return }
+        let item = drawHistorial[drawItems.count]
+        drawItems.append(item)
+        if item.type == 2, let img = item.img {
+            mainImgView.image = img
+        }
+        print("Index: ",drawItems.count," Historial: ",drawHistorial.count," CurrentUndo: ",currentUndo)
+    }
+    
+    func mergedImageWith(frontImage:UIImage?, backgroundImage: UIImage?) -> UIImage {
+        if backgroundImage == nil {
+            return frontImage!
+        }
+
+        let size = self.mainImgView.frame.size
+        UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
+
+        backgroundImage?.draw(in: CGRect.init(x: 0, y: 0, width: size.width, height: size.height))
+        frontImage?.draw(in: CGRect.init(x: 0, y: 0, width: size.width, height: size.height).insetBy(dx: size.width * 0.0, dy: size.height * 0.0))
+
+        let newImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+
+        return newImage
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
