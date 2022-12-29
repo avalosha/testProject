@@ -220,17 +220,17 @@ extension IdentificadorViewController: UIImagePickerControllerDelegate, UINaviga
         print("resultado del centrado y redimensionado.... :")
         print(crop.size.height, crop.size.width)
         
-        let image2 = change_color(crop, row: Int(posY), col: Int(posX), HEX: color)
-        
-        // Create a context of the starting image size and set it as the current one
-        UIGraphicsBeginImageContext(image2.size)
-        // Draw the starting image in the current context as background
-        image2.draw(at: CGPoint.zero)
-        // Save the context as a new UIImage
-        let myImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        currentImg = myImage
-        mainImgView.image = myImage
+//        let image2 = change_color(crop, row: Int(posY), col: Int(posX), HEX: color)
+//        
+//        // Create a context of the starting image size and set it as the current one
+//        UIGraphicsBeginImageContext(image2.size)
+//        // Draw the starting image in the current context as background
+//        image2.draw(at: CGPoint.zero)
+//        // Save the context as a new UIImage
+//        let myImage = UIGraphicsGetImageFromCurrentImageContext()
+//        UIGraphicsEndImageContext()
+//        currentImg = myImage
+//        mainImgView.image = myImage
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
