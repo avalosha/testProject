@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (UIImage *)change_color:(UIImage *)source andRow:(int)row andCol:(int)col andR:(int)r andG:(int)g andB:(int)b;
 
-+ (UIImage *)toCenter:(UIImage *)source andWidth:(int)width andHeight:(int)height andWidth2:(int)width2 andHeight2:(int)height2 andWidth_c:(int)width_c andHeight_c:(int)height_c;
++ (UIImage *)toCenter:(UIImage *)source andWidth:(int)width andHeight:(int)height andWidth2:(int)width2 andHeight2:(int)height2 andWidth_c:(int)width_c andHeight_c:(int)height_c andRot:(int)rot;
 
 + (void) colorPredominante:(UIImage *)source andCenters:(double**)centroides andPosiciones:(double**)posiciones andK:(int)K;
 
