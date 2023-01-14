@@ -7,6 +7,7 @@
 
 import UIKit
 import libraryColorPredominanteLITE
+import Alamofire
 
 class IdentificadorViewController: UIViewController {
 
@@ -178,7 +179,7 @@ extension IdentificadorViewController: UIImagePickerControllerDelegate, UINaviga
         print("dimensiones dispositivo: ", device_height, device_width)
         print("ImgSize: ",image.size," ImgViewSize: ",mainImgView.frame.size)
         // Ejecutamos la libreria de deteccion de color predominante
-        let crop = centerCrop(image, new_h: Int(mainImgView.frame.height), new_w:  Int(mainImgView.frame.width))
+        let crop = centerCrop(image, new_h: Float(mainImgView.frame.height), new_w:  Float(mainImgView.frame.width))
         print("resultado del centrado y redimensionado.... :")
         print(crop.size)
 //        let colors = ColoresPredominantes(crop, k_clusters: 5) // 7 12
@@ -238,9 +239,11 @@ extension IdentificadorViewController: UIImagePickerControllerDelegate, UINaviga
     private func paintColor() {
         guard let cgPoint = point, let image = currentImg, let color = currentColor else { return }
         
-        let posX = (cgPoint.x*image.size.width)/mainImgView.frame.width
-//        let newPointY = image.size.height - cgPoint.y
-        let posY = (cgPoint.y*mainImgView.frame.height)/image.size.height
+        let sizeImg = image.size
+        let sizeImgView = mainImgView.frame.size
+        
+        let posX = (cgPoint.x*sizeImg.width)/sizeImgView.width
+        let posY = (cgPoint.y*sizeImg.height)/sizeImgView.height
         print(" - posición: ", posX, posY)
         
         // Obtenemos las dimensiones del dispositivo
@@ -248,22 +251,22 @@ extension IdentificadorViewController: UIImagePickerControllerDelegate, UINaviga
         let device_width = screenSize.width
         let device_height = screenSize.height
         print(" - dimensiones dispositivo: ", device_height, device_width)
-        print(" - dimensiones del UIImage: ", mainImgView.frame.height, mainImgView.frame.width)
-        print(" - dimensiones de la imagen: ", image.size)
+        print(" - dimensiones del UIImage: ", sizeImgView)
+        print(" - dimensiones de la imagen: ", sizeImg)
+        print(" - colorHx: ", color)
         
-//        return
         // Verificamos si el UIImage se corta por el size del dispositivo
-        var new_w = Int(mainImgView.frame.width)
-        if( Int(device_width) < Int(mainImgView.frame.width) ){
+        var new_w = sizeImgView.width
+        if device_width < sizeImgView.width {
             print("---++ usamos el size del dispositivo... ")
-            new_w = Int(device_width)
+            new_w = device_width
         }
         // Recortamos y centramos la imagen
-        let crop = centerCrop(image, new_h: Int(mainImgView.frame.height), new_w:  new_w)
+        let crop = centerCrop(image, new_h: Float(sizeImgView.height), new_w:  Float(new_w))
         print("resultado del centrado y redimensionado.... :")
         print(crop.size.height, crop.size.width)
         
-        let image2 = change_color(crop, row: Int(posY), col: Int(posX), HEX: color)
+        let image2 = change_color(crop, row: Int(posX), col: Int(posY), HEX: color)
         
         // Create a context of the starting image size and set it as the current one
         UIGraphicsBeginImageContext(image2.size)
@@ -285,15 +288,16 @@ extension IdentificadorViewController: UIImagePickerControllerDelegate, UINaviga
         print("Index: ",drawItems.count," Historial: ",drawHistorial.count," CurrentUndo: ",currentUndo)
         // Obtiene imagen actual
         let screenShoot = mainImgView.image
+        print("RepaintImgHeight: ",screenShoot?.size.height ?? ""," RepaintImgWidth: ",screenShoot?.size.width ?? "")
         // Obtiene imagen previa
-        let previousImage = drawItems.last?.img
-        // Merge imagen anterior + imagen actual
-        let mergeImg = mergedImageWith(frontImage: screenShoot, backgroundImage: previousImage)
+//        let previousImage = drawItems.last?.img
+//        // Merge imagen anterior + imagen actual
+//        let mergeImg = mergedImageWith(frontImage: screenShoot, backgroundImage: previousImage)
         // Muestra imagen completa actual
-        currentImg = mergeImg
-        mainImgView.image = mergeImg
+        currentImg = screenShoot
+//        mainImgView.image = screenShoot
         // Guarda imagen actual
-        drawItems.append(Historial(type: 2, img: mergeImg))
+        drawItems.append(Historial(type: 2, img: screenShoot))
         drawHistorial = drawItems
         currentUndo = 0
         updateUndoButtons()
@@ -360,6 +364,86 @@ extension IdentificadorViewController: UIImagePickerControllerDelegate, UINaviga
             self.mainImgView.addSubview(dot)
             point = position
             paintColor()
+//            changeColorWithWS(cgpoint: point!)
+        }
+    }
+    
+    private func changeColorWithWS(cgpoint: CGPoint) {
+        guard let image = currentImg else { return }
+        let imageData = image.pngData()!//image.jpegData(compressionQuality: 1.0)!
+        let imageKey = "img"
+        let urlString = "https://berelgold.sferea.com/libreria/cambiarColor/2"
+        // Obtenemos las dimensiones del ImageView e Imagen
+        let sizeImg = image.size
+        let sizeImgView = mainImgView.frame.size
+        
+        let posX = (cgpoint.x*sizeImg.width)/sizeImgView.width
+        let posY = (cgpoint.y*sizeImg.height)/sizeImgView.height
+        print(" - position: ", posX, posY)
+        print(" - positionInt: ", Int(posX), Int(posY))
+        print(" - colorHx: ", currentColor ?? "")
+        print(" - dimensiones del UIImageView: ", sizeImgView.height, sizeImgView.width)
+        print(" - dimensiones de la imagen: ", sizeImg)
+        let params: [String: Any]? = ["setHex": currentColor!, "x": Int(posX), "y": Int(posY)]
+
+//        AF.request( "https://berelapigold.sferea.com/file/section-combination/normal/56caf0179697872b70cb85ad6085fbae.png",method: .get).response { response in
+//
+//         switch response.result {
+//          case .success(let responseData):
+//              self.mainImgView.image = UIImage(data: responseData!, scale:1)
+//          case .failure(let error):
+//              print("error--->",error)
+//          }
+//        }
+        
+        AF.upload(multipartFormData: { multiPart in
+            for (key, value) in (params ?? [:]) {
+                if let arrayObj = value as? [Any] {
+                    for index in 0..<arrayObj.count {
+                        multiPart.append("\(arrayObj[index])".data(using: .utf8)!, withName: "\(key)[\(index)]")
+                    }
+                } else {
+                    multiPart.append("\(value)".data(using: .utf8)!, withName: key)
+                }
+            }
+            multiPart.append(imageData, withName: imageKey, fileName: "file.jpg", mimeType: "image/jpg")
+        }, to: urlString).response { response in
+            switch response.result {
+             case .success(let responseData):
+                self.mainImgView.image = UIImage(data: responseData!, scale:1)
+                self.screenShootChangeColor()
+             case .failure(let error):
+                 print("error--->",error)
+             }
+        }
+        
+    }
+    
+    func changeColor(with params: [String:Any], img: UIImage) {
+        let imageData = img.pngData()!//img.jpegData(compressionQuality: 1.0)!
+        let imageKey = "img"
+        let endpoint = "https://berelgold.sferea.com/libreria/cambiarColor/2"
+
+        AF.upload(multipartFormData: { multiPart in
+            for (key, value) in (params) {
+                if let arrayObj = value as? [Any] {
+                    for index in 0..<arrayObj.count {
+                        multiPart.append("\(arrayObj[index])".data(using: .utf8)!, withName: "\(key)[\(index)]")
+                    }
+                } else {
+                    multiPart.append("\(value)".data(using: .utf8)!, withName: key)
+                }
+            }
+            multiPart.append(imageData, withName: imageKey, fileName: "file.jpg", mimeType: "image/png")
+        }, to: endpoint).response { response in
+            switch response.result {
+             case .success(let responseData):
+                let newImg = UIImage(data: responseData!, scale: 1)
+//                self.responseChangeColor.value = CambiarColorResponse(status: true, image: newImg)
+             case .failure(let error):
+                 print("error--->",error)
+//                self.responseChangeColor.value = CambiarColorResponse(status: false)
+             }
         }
     }
 }
