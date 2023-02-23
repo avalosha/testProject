@@ -10,7 +10,9 @@ import libraryColorPredominanteLITE
 import Alamofire
 
 class IdentificadorViewController: UIViewController {
-
+    //--------------------------------------------------------------------------
+    //MARK: - Outlets
+    //--------------------------------------------------------------------------
     @IBOutlet weak var identificadorBtn: UIButton!
     @IBOutlet weak var backView: UIView!
     @IBOutlet weak var brochaBtn: UIButton!
@@ -20,6 +22,9 @@ class IdentificadorViewController: UIViewController {
     @IBOutlet weak var undoBtn: UIButton!
     @IBOutlet weak var redoBtn: UIButton!
     
+    //--------------------------------------------------------------------------
+    //MARK: - Properties
+    //--------------------------------------------------------------------------
     private var imagePickerController : UIImagePickerController!
     private var identifierColors = [IdentifierData]()
     
@@ -43,6 +48,9 @@ class IdentificadorViewController: UIViewController {
     // Contador Hacer-Deshacer
     private var currentUndo = 0
     
+    //--------------------------------------------------------------------------
+    //MARK: - ciclo de vida
+    //--------------------------------------------------------------------------
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -73,6 +81,9 @@ class IdentificadorViewController: UIViewController {
         colors.append(color10)
     }
     
+    //--------------------------------------------------------------------------
+    //MARK: - Setup's
+    //--------------------------------------------------------------------------
     private func setupPickerController() {
         imagePickerController = UIImagePickerController()
         imagePickerController.modalPresentationStyle = .fullScreen
@@ -96,6 +107,9 @@ class IdentificadorViewController: UIViewController {
         redoBtn.isHidden = true
     }
     
+    //--------------------------------------------------------------------------
+    //MARK: - Actions
+    //--------------------------------------------------------------------------
     @IBAction func onClickGaleryBtn(_ sender: Any) {
         mainImgView.subviews.forEach { $0.removeFromSuperview() }
         self.present(imagePickerController, animated: true, completion: nil)
@@ -153,7 +167,11 @@ class IdentificadorViewController: UIViewController {
     
 }
 
+//--------------------------------------------------------------------------
+//MARK: - Outlets
+//--------------------------------------------------------------------------
 extension IdentificadorViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    /// Delegado para obtener la imagen seleccionada desde camara o galería.
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         guard let image: UIImage = info[UIImagePickerController.InfoKey.originalImage] as! UIImage? else {
@@ -171,6 +189,8 @@ extension IdentificadorViewController: UIImagePickerControllerDelegate, UINaviga
         self.present(vc, animated: true)
     }
     
+    /// Obtener colores predominantes.
+    /// - Parameter image: UIImage.
     private func getPredominantColors(with image: UIImage) {
         // Obtenemos las dimensiones del dispositivo
         let screenSize = UIScreen.main.bounds.size
@@ -236,6 +256,7 @@ extension IdentificadorViewController: UIImagePickerControllerDelegate, UINaviga
         colorsTableView.reloadData()
     }
     
+    /// Repintar area seleccionada.
     private func paintColor() {
         guard let cgPoint = point, let image = currentImg, let color = currentColor else { return }
         
@@ -269,7 +290,8 @@ extension IdentificadorViewController: UIImagePickerControllerDelegate, UINaviga
         let image2 = change_color(crop, row: Int(posX), col: Int(posY), HEX: color)
         
         // Create a context of the starting image size and set it as the current one
-        UIGraphicsBeginImageContext(image2.size)
+//        UIGraphicsBeginImageContext(image2.size)
+        UIGraphicsBeginImageContextWithOptions(image2.size, false, 0.0)
         // Draw the starting image in the current context as background
         image2.draw(at: CGPoint.zero)
         // Save the context as a new UIImage
@@ -277,7 +299,7 @@ extension IdentificadorViewController: UIImagePickerControllerDelegate, UINaviga
         UIGraphicsEndImageContext()
         
 //        currentImg = myImage
-        mainImgView.image = myImage
+        mainImgView.image = image2
         
         screenShootChangeColor()
     }
@@ -448,6 +470,9 @@ extension IdentificadorViewController: UIImagePickerControllerDelegate, UINaviga
     }
 }
 
+//--------------------------------------------------------------------------
+//MARK: - UITableViewDelegate, UITableViewDataSource
+//--------------------------------------------------------------------------
 extension IdentificadorViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         identifierColors.count
@@ -489,7 +514,9 @@ extension IdentificadorViewController: CropViewControllerDelegate{
     
 }
 
-// MARK: - Identificador de colores
+//--------------------------------------------------------------------------
+//MARK: - IdentifierData
+//--------------------------------------------------------------------------
 struct IdentifierData {
     var color: UIColor?
     var colorHx: String?
