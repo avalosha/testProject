@@ -1,0 +1,11 @@
+Pasos para documentar:
+
+1. Instalar jazzy
+
+sudo gem install jazzy
+
+2. Dirigirse a la carpeta que contenga el .workspace
+
+3. Ejecutar el siguiente comando
+
+jazzy -x -workspace,Berel.xcworkspace,-scheme,Berel --min-acl private --hide-documentation-coverage
