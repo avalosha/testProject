@@ -13,9 +13,21 @@ struct VideoReelModel {
     let videoURL: String
 }
 
+//MARK: - New Instance
+extension ReelsViewController {
+    /// Retorna una nueva instancia de la clase  ReelsViewController
+    /// - Returns: Instancia de  ReelsViewController
+    static func newInstance(selectTerms: Bool = false) -> ReelsViewController? {
+        let vc = ReelsViewController()
+        return vc
+    }
+}
+
 class ReelsViewController: UIViewController {
 
     private var collectionView: UICollectionView?
+    private var backButton: UIButton?
+    private var shareButton: UIButton?
     private var data = [VideoReelModel]()
     let urlVideo = ["https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
                     "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
@@ -57,6 +69,8 @@ class ReelsViewController: UIViewController {
                      "The Smoking Tire is going on the 2010 Bullrun Live Rally in a 2011 Shelby GT500, and posting a video from the road every single day! The only place to watch them is by subscribing to The Smoking Tire or watching at BlackMagicShine.com",
                      "The Smoking Tire meets up with Chris and Jorge from CarsForAGrand.com to see just how far $1,000 can go when looking for a car.The Smoking Tire meets up with Chris and Jorge from CarsForAGrand.com to see just how far $1,000 can go when looking for a car."]
     
+    private var currentIndex = IndexPath(item: 0, section: 0)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -69,21 +83,67 @@ class ReelsViewController: UIViewController {
         layout.scrollDirection = .vertical
         layout.itemSize = CGSize(width: view.frame.size.width, height: view.frame.size.height)
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        layout.minimumLineSpacing = 0
+        layout.minimumInteritemSpacing = 0
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView?.register(VideoCollectionViewCell.self, forCellWithReuseIdentifier: VideoCollectionViewCell.identifier)
         collectionView?.isPagingEnabled = true
+        collectionView?.clipsToBounds = false
         collectionView?.dataSource = self
+        collectionView?.delegate = self
         view.addSubview(collectionView!)
+        
+        let back = UIButton()
+        back.frame = CGRectMake(25, 45, 40, 40)
+        back.setBackgroundImage(UIImage(named: "Icon_Back"), for: .normal)
+        back.addTarget(self, action: #selector(backTo), for: .touchUpInside)
+        backButton = back
+        view.addSubview(backButton!)
+        view.bringSubviewToFront(backButton!)
+        
+        let share = UIButton()
+        share.frame = CGRectMake(self.view.frame.width - 65, 45, 40, 40)
+        share.setBackgroundImage(UIImage(named: "Icono_Compartir"), for: .normal)
+        share.addTarget(self, action: #selector(shareTo), for: .touchUpInside)
+        shareButton = share
+        view.addSubview(shareButton!)
+        view.bringSubviewToFront(shareButton!)
+    }
+    
+    deinit {
+        NSLog ("ReelsViewController deinit called")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        collectionView?.reloadData()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        collectionView?.setContentOffset(CGPoint.zero, animated: false)
+        let indexPath = IndexPath(item: 0, section: 0)
+        if let cell = collectionView?.cellForItem(at: indexPath) as? VideoCollectionViewCell {
+            cell.playStatus = true
+        }
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         collectionView?.frame = view.bounds
     }
+    
+    @objc private func backTo() {
+        self.dismiss(animated: true)
+    }
+    
+    @objc private func shareTo() {
+        print("Compartir ...")
+    }
 
 }
 
-extension ReelsViewController: UICollectionViewDataSource {
+extension ReelsViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return data.count
     }
@@ -95,5 +155,84 @@ extension ReelsViewController: UICollectionViewDataSource {
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if currentIndex == indexPath {
+            if let cell = collectionView.cellForItem(at: indexPath) as? VideoCollectionViewCell {
+                cell.playStatus = !cell.playStatus
+                cell.showPlayButton(with: cell.playStatus)
+            }
+        }
+    }
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if let colView = collectionView {
+            let visibleRect = CGRect(origin: colView.contentOffset, size: colView.bounds.size)
+            let visiblePoint = CGPoint(x: visibleRect.midX, y: visibleRect.midY)
+            if let indexPath = colView.indexPathForItem(at: visiblePoint) {
+                print("Indice: ",indexPath.row)
+                
+                if currentIndex != indexPath {
+                    if let cell = collectionView?.cellForItem(at: currentIndex) as? VideoCollectionViewCell {
+                        cell.player?.seek(to: .zero)
+                        cell.playStatus = false
+                    }
+                    if let cell = collectionView?.cellForItem(at: indexPath) as? VideoCollectionViewCell {
+                        cell.playStatus = true
+                    }
+                    currentIndex = indexPath
+                }
+            }
+            
+        }
+    }
+    
+}
+
+extension UIView {
+//    func fadeIn(duration: TimeInterval = 1.0, delay: TimeInterval = 0.0, completion: @escaping ((Bool) -> Void) = {(finished: Bool) -> Void in }) {
+//        self.alpha = 0.0
+//
+//        UIView.animate(withDuration: duration, delay: delay, options: UIView.AnimationOptions.curveEaseIn, animations: {
+//            self.isHidden = false
+//            self.transform = CGAffineTransform(scaleX: 2.0, y: 2.0)
+//            self.alpha = 1.0
+//        }, completion: completion)
+//    }
+//
+//    func fadeOut(duration: TimeInterval = 1.0, delay: TimeInterval = 0.0, completion: @escaping (Bool) -> Void = {(finished: Bool) -> Void in }) {
+//        self.alpha = 1.0
+//
+//        UIView.animate(withDuration: duration, delay: delay, options: UIView.AnimationOptions.curveEaseOut, animations: {
+//            self.isHidden = true
+//            self.alpha = 0.0
+//        }, completion: completion)
+//    }
+    
+    func fadeIn() {
+        self.alpha = 0.0
+        self.isHidden = false
+        
+        UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveLinear, animations: {
+            self.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+            self.alpha = 1.0
+        }) { finished in
+            if finished {
+                self.fadeOut()
+            }
+        }
+    }
+    
+    func fadeOut() {
+        self.alpha = 1.0
+        
+        UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveLinear, animations: {
+            self.transform = CGAffineTransform(scaleX: 2.0, y: 2.0)
+            self.alpha = 0.0
+        }) { finished in
+            if finished {
+                self.isHidden = true
+                self.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+            }
+        }
+    }
 }

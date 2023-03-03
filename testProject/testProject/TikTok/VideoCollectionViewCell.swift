@@ -29,18 +29,33 @@ class VideoCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
+    private var playImageView: UIImageView?
+    private let playImg = UIImage(named: "Icono_Play")
+    private let pauseImg = UIImage(named: "Icono_Pausa")
+    
     // UIView
     private let videoContainer = UIView()
     
     // Subviews
-    var player: AVPlayer?
+    public var player: AVPlayer?
+    
+    // Play
+    public var playStatus: Bool = false {
+        didSet {
+            if playStatus {
+                player?.play()
+            } else {
+                player?.pause()
+            }
+        }
+    }
     
     // Model
     private var model: VideoReelModel?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        contentView.backgroundColor = .red
+        contentView.backgroundColor = .black
         contentView.clipsToBounds = true
         addSubiews()
     }
@@ -57,6 +72,20 @@ class VideoCollectionViewCell: UICollectionViewCell {
         
         videoContainer.clipsToBounds = true
         contentView.sendSubviewToBack(videoContainer)
+        
+        let imgView = UIImageView()
+        imgView.contentMode = UIView.ContentMode.scaleAspectFit
+        imgView.frame.size.width = 60
+        imgView.frame.size.height = 60
+        imgView.center = self.contentView.center
+        imgView.image = playImg
+        playImageView = imgView
+        contentView.addSubview(playImageView!)
+        contentView.bringSubviewToFront(playImageView!)
+        playImageView?.isHidden = true
+        
+        contentView.addSubview(playImageView!)
+        contentView.bringSubviewToFront(playImageView!)
     }
     
     override func layoutSubviews() {
@@ -65,16 +94,17 @@ class VideoCollectionViewCell: UICollectionViewCell {
         videoContainer.frame = contentView.bounds
         
         let width = contentView.frame.size.width
-        let height = contentView.frame.size.height - 100
+        let height = contentView.frame.size.height// - 100
         
-        titleLabel.frame = CGRect(x: 10, y: height-60, width: width-20, height: 20)
-        subTitleLabel.frame = CGRect(x: 10, y: height-40, width: width-20, height: 100)
+        titleLabel.frame = CGRect(x: 30, y: height - 120, width: width - 60, height: 20)
+        subTitleLabel.frame = CGRect(x: 30, y: height - 100, width: width - 60, height: 100)
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
         titleLabel.text = nil
         subTitleLabel.text = nil
+        playStatus = false
     }
     
     public func configure(with model: VideoReelModel) {
@@ -83,7 +113,6 @@ class VideoCollectionViewCell: UICollectionViewCell {
         
         titleLabel.text = model.title
         subTitleLabel.text = model.subtitle
-        
     }
     
     private func configureVideo() {
@@ -95,6 +124,11 @@ class VideoCollectionViewCell: UICollectionViewCell {
         playerView.videoGravity = .resizeAspectFill
         videoContainer.layer.addSublayer(playerView)
         player?.volume = 100
-        player?.play()
+        playStatus = false
+    }
+    
+    public func showPlayButton(with status: Bool) {
+        playImageView?.image = status ? playImg : pauseImg
+        playImageView?.fadeIn()
     }
 }

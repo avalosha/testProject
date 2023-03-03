@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="liq-fi-Z3d">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="kBx-Uc-fCb">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -676,20 +676,45 @@
             </objects>
             <point key="canvasLocation" x="-33" y="4802"/>
         </scene>
-        <!--Reels View Controller-->
-        <scene sceneID="sbV-zG-ZDR">
+        <!--Main Reels View Controller-->
+        <scene sceneID="FDl-jN-MaZ">
             <objects>
-                <viewController storyboardIdentifier="ReelsVC" id="liq-fi-Z3d" customClass="ReelsViewController" customModule="testProject" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="rZ1-OI-2by">
+                <viewController storyboardIdentifier="MainReelVC" id="kBx-Uc-fCb" customClass="MainReelsViewController" customModule="testProject" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="tvW-I5-ai5">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="edq-v7-KIv"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TPL-qQ-x9L">
+                                <rect key="frame" x="132" y="398" width="150" height="100"/>
+                                <color key="backgroundColor" name="AccentColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="H0c-iR-ChW"/>
+                                    <constraint firstAttribute="height" constant="100" id="dce-W6-a77"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Videos">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="onClickVideosBtn:" destination="kBx-Uc-fCb" eventType="touchUpInside" id="2P4-FE-hIN"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="fIw-9P-q3H"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="TPL-qQ-x9L" firstAttribute="centerY" secondItem="tvW-I5-ai5" secondAttribute="centerY" id="0vu-EY-Tf7"/>
+                            <constraint firstItem="TPL-qQ-x9L" firstAttribute="centerX" secondItem="tvW-I5-ai5" secondAttribute="centerX" id="cIS-JE-nuf"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="videosBtn" destination="TPL-qQ-x9L" id="8Fk-85-YVt"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6fG-ox-K3b" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4yr-P0-rDZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1" y="5618"/>
+            <point key="canvasLocation" x="-33" y="5618"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="mpq-tf-pQk">
