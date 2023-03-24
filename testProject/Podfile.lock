@@ -2,16 +2,12 @@ PODS:
   - Alamofire (5.6.2)
   - ALCameraViewController (3.1)
   - CameraKit-iOS (1.2.1)
-  - Pushwoosh (6.2.5):
-    - Pushwoosh/Core (= 6.2.5)
-  - Pushwoosh/Core (6.2.5)
   - YoutubePlayer-in-WKWebView (0.3.8)
 
 DEPENDENCIES:
   - Alamofire
   - ALCameraViewController
   - CameraKit-iOS
-  - Pushwoosh
   - YoutubePlayer-in-WKWebView (~> 0.3.0)
 
 SPEC REPOS:
@@ -19,16 +15,14 @@ SPEC REPOS:
     - Alamofire
     - ALCameraViewController
     - CameraKit-iOS
-    - Pushwoosh
     - YoutubePlayer-in-WKWebView
 
 SPEC CHECKSUMS:
   Alamofire: d368e1ff8a298e6dde360e35a3e68e6c610e7204
   ALCameraViewController: 144dea45fd749a623aafd8cb7b10cea88499fcc3
   CameraKit-iOS: 7a8aeb4b6ac93c59088ada934efb6010ed2394c1
-  Pushwoosh: 50bc2a7b1886364a6b6d464cf4e0e23d23c88a1e
   YoutubePlayer-in-WKWebView: 4fca3b4f6f09940077bfbae7bddb771f2b43aacd
 
-PODFILE CHECKSUM: 1ce6245a45e6d743777d91712d444bdf8dfcea23
+PODFILE CHECKSUM: ab026a0845a462ea0143f0e7b2176da96b31420a
 
 COCOAPODS: 1.11.3

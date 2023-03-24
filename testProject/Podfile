@@ -7,7 +7,6 @@ target 'testProject' do
   inhibit_all_warnings!
 
   # Pods for testProject
-	pod 'Pushwoosh'
   pod 'ALCameraViewController'
   pod 'CameraKit-iOS'
   pod "YoutubePlayer-in-WKWebView", "~> 0.3.0"

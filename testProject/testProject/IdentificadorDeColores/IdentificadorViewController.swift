@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import libraryColorPredominanteLITE
+//import libraryColorPredominanteLITE
 
 class IdentificadorViewController: UIViewController {
 
@@ -135,61 +135,61 @@ extension IdentificadorViewController: UIImagePickerControllerDelegate, UINaviga
         print("dimensiones dispositivo: ", device_height, device_width)
         print("ImgSize: ",image.size," ImgViewSize: ",mainImgView.frame.size)
         // Ejecutamos la libreria de deteccion de color predominante
-        let crop = centerCrop(image, new_h: Int(mainImgView.frame.height), new_w:  Int(mainImgView.frame.width))
-        print("resultado del centrado y redimensionado.... :")
-        print(crop.size)
-//        let colors = ColoresPredominantes(crop, k_clusters: 5) // 7 12
-        let colors = coloresPredominantes2(crop)
-        
-        // Create a context of the starting image size and set it as the current one
-        UIGraphicsBeginImageContext(image.size)
-        // Draw the starting image in the current context as background
-        image.draw(at: CGPoint.zero)
-        // Get the current context
-        let context = UIGraphicsGetCurrentContext()!
-        
-        self.identifierColors.removeAll()
-        for i in 0..<colors.count {
-            print(i,". Color: ",colors[i])
-            let color = colors[i]["colorUIColor"] as? UIColor ?? .clear
-            let posX = colors[i]["coordenadaX"] as? CGFloat
-            let posY = colors[i]["coordenadaY"] as? CGFloat
-            let colorHx = colors[i]["colorHexadecimal"] as? String
-            let data = IdentifierData(color: color, colorHx: colorHx, posX: posX, posY: posY)
-            self.identifierColors.append(data)
-            
-            // Ploteamos la posicion del centroide de los colores predominantes sobre la Imagen
-            if i < 5 {
-                print("---------")
-                let posx = colors[i]["coordenadaX"]!
-                let posy = colors[i]["coordenadaY"]!
-                print("posicion pixel: ",posx, posy)
-                
-                let diam = Int(45*image.size.height/1080.0)
-                let LineWidth = 10.0*image.size.height/1080.0
-                print("Diam: ", diam)
-                print("LineWidth: ", LineWidth)
-                
-                // Draw a transparent green Circle
-                context.setStrokeColor(UIColor.black.cgColor)
-                if let color = colors[i]["colorUIColor"] as? UIColor {
-                    context.setFillColor(color.cgColor)
-                }
-                context.setAlpha(0.9)
-                context.setLineWidth(LineWidth) //8.0
-                // x: posicion de los pixeles horizontales
-                // y: posicion de los pixeles verticales
-                context.addEllipse(in: CGRect(x: posx as! Int, y: posy as! Int, width: diam, height: diam))
-                context.drawPath(using: .fillStroke)
-            }
-        }
-             
-        // Save the context as a new UIImage
-        let myImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        mainImgView.image = myImage
-        colorsTableView.reloadData()
+//        let crop = centerCrop(image, new_h: Int(mainImgView.frame.height), new_w:  Int(mainImgView.frame.width))
+//        print("resultado del centrado y redimensionado.... :")
+//        print(crop.size)
+////        let colors = ColoresPredominantes(crop, k_clusters: 5) // 7 12
+//        let colors = coloresPredominantes2(crop)
+//
+//        // Create a context of the starting image size and set it as the current one
+//        UIGraphicsBeginImageContext(image.size)
+//        // Draw the starting image in the current context as background
+//        image.draw(at: CGPoint.zero)
+//        // Get the current context
+//        let context = UIGraphicsGetCurrentContext()!
+//
+//        self.identifierColors.removeAll()
+//        for i in 0..<colors.count {
+//            print(i,". Color: ",colors[i])
+//            let color = colors[i]["colorUIColor"] as? UIColor ?? .clear
+//            let posX = colors[i]["coordenadaX"] as? CGFloat
+//            let posY = colors[i]["coordenadaY"] as? CGFloat
+//            let colorHx = colors[i]["colorHexadecimal"] as? String
+//            let data = IdentifierData(color: color, colorHx: colorHx, posX: posX, posY: posY)
+//            self.identifierColors.append(data)
+//
+//            // Ploteamos la posicion del centroide de los colores predominantes sobre la Imagen
+//            if i < 5 {
+//                print("---------")
+//                let posx = colors[i]["coordenadaX"]!
+//                let posy = colors[i]["coordenadaY"]!
+//                print("posicion pixel: ",posx, posy)
+//
+//                let diam = Int(45*image.size.height/1080.0)
+//                let LineWidth = 10.0*image.size.height/1080.0
+//                print("Diam: ", diam)
+//                print("LineWidth: ", LineWidth)
+//
+//                // Draw a transparent green Circle
+//                context.setStrokeColor(UIColor.black.cgColor)
+//                if let color = colors[i]["colorUIColor"] as? UIColor {
+//                    context.setFillColor(color.cgColor)
+//                }
+//                context.setAlpha(0.9)
+//                context.setLineWidth(LineWidth) //8.0
+//                // x: posicion de los pixeles horizontales
+//                // y: posicion de los pixeles verticales
+//                context.addEllipse(in: CGRect(x: posx as! Int, y: posy as! Int, width: diam, height: diam))
+//                context.drawPath(using: .fillStroke)
+//            }
+//        }
+//
+//        // Save the context as a new UIImage
+//        let myImage = UIGraphicsGetImageFromCurrentImageContext()
+//        UIGraphicsEndImageContext()
+//
+//        mainImgView.image = myImage
+//        colorsTableView.reloadData()
     }
     
     private func paintColor() {
@@ -216,9 +216,9 @@ extension IdentificadorViewController: UIImagePickerControllerDelegate, UINaviga
             new_w = Int(device_width)
         }
         // Recortamos y centramos la imagen
-        let crop = centerCrop(image, new_h: Int(mainImgView.frame.height), new_w:  new_w)
-        print("resultado del centrado y redimensionado.... :")
-        print(crop.size.height, crop.size.width)
+//        let crop = centerCrop(image, new_h: Int(mainImgView.frame.height), new_w:  new_w)
+//        print("resultado del centrado y redimensionado.... :")
+//        print(crop.size.height, crop.size.width)
         
 //        let image2 = change_color(crop, row: Int(posY), col: Int(posX), HEX: color)
 //        
